@@ -1,0 +1,5 @@
+main: pru.example
+version: 1.0.0
+name: pruebaplugin
+author: zarya
+api-version: 1.17.1-R0.1-SNAPSHOT
