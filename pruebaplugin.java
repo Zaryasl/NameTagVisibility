@@ -46,3 +46,32 @@ public class pruebaplugin extends JavaPlugin implements Listener {
             }
         }
 
+class Notnull implements CommandExecutor { public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    if (sender instanceof Player) {
+        Player player = (Player) sender;
+        if (args.length == 1) {
+            String option = args[0].toLowerCase();
+            Team team = player.getScoreboard().getTeam(player.getName());
+            if (team != null) {
+                if (option.equals("show")) {
+                    team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
+                    player.sendMessage("La visibilidad del nombre ahora está configurada para mostrar siempre.");
+                } else if (option.equals("hide")) {
+                    team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+                    player.sendMessage("La visibilidad del nombre ahora está configurada para ocultarse siempre.");
+                } else {
+                    player.sendMessage("Opción no válida. Use 'show' o 'hide' como argumento.");
+                }
+            } else {
+                player.sendMessage("No se encontró el equipo del jugador. Asegúrate de que el jugador tenga un equipo asignado.");
+            }
+        } else {
+            player.sendMessage("Uso: /miComando <show|hide>");
+        }
+    } else {
+        sender.sendMessage("Este comando solo puede ser ejecutado por un jugador.");
+    }
+    return true;
+}
+}
+
